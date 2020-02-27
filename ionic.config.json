@@ -1,0 +1,7 @@
+{
+  "name": "ionic-opendata-aemet",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
