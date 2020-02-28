@@ -11,6 +11,7 @@ export class HomePage implements OnInit {
 
   currentYear = new Date().getFullYear();
   provinces = [];
+  allStations = [];
   stations = [];
   startDate = new Date();
   endDate = new Date();
@@ -31,6 +32,7 @@ export class HomePage implements OnInit {
       console.log(data);
       this.odAemetService.getData(data.datos).subscribe((stations) => {
         console.log(stations);
+        this.allStations = stations;
         this.stations = stations;
       });
     });
@@ -38,7 +40,8 @@ export class HomePage implements OnInit {
 
   onProvinceChange(event) {
     console.log('HomePage::onProvinceChange method called', event);
-    this.stations = this.stations.filter(station => station.provincia === event.detail.value);
+    this.stations = [];
+    this.stations = this.allStations.filter(station => station.provincia === event.detail.value);
     this.stations.sort((a, b) => a.nombre.localeCompare(b.nombre));
   }
 
@@ -53,7 +56,7 @@ export class HomePage implements OnInit {
     console.log('HomePage::getClimatologicalValues method called', start, end);
     this.odAemetService.getClimatologicalURLData(start, end, this.selectedStation).subscribe((data) => {
       console.log(data);
-      this.odAemetService.getData(data.datos).subscribe((values) => {
+      this.odAemetService.getClimatologicalValues(data.datos).subscribe((values) => {
         console.log(values);
         this.climValues = values;
       });

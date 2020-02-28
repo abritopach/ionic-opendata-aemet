@@ -35,6 +35,7 @@ export class OpendataAemetService {
     { 'id': '01', 'nm': 'Araba/Álava' }, { 'id': '48', 'nm': 'Bizkaia' }, { 'id': '20', 'nm': 'Gipuzkoa' },
     { 'id': '26', 'nm': 'Rioja, La' }, { 'id': '51', 'nm': 'Ceuta' }, { 'id': '52', 'nm': 'Melilla' }
   ];
+  climatologicalValues = [];
 
   constructor(private http: HttpClient) {
     this.provinces.forEach(province => {
@@ -93,6 +94,22 @@ export class OpendataAemetService {
     .pipe(
       retry(3),
       catchError(this.handleError),
+    );
+  }
+
+  getClimatologicalValues(dataURL: string): Observable<any> {
+    return this.http
+    .get(dataURL)
+    .pipe(
+      retry(3),
+      catchError(this.handleError),
+      tap((result) => {
+        console.log('result', result);
+        this.climatologicalValues = result;
+      },
+      (error) => {
+          console.log('error', error.message);
+      })
     );
   }
 
