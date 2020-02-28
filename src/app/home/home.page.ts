@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { OpendataAemetService } from '../services/opendata-aemet.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -18,8 +19,9 @@ export class HomePage implements OnInit {
   selectedProvince = '';
   selectedStation = '';
   climValues = [];
+  loading: HTMLIonLoadingElement;
 
-  constructor(private odAemetService: OpendataAemetService) {
+  constructor(private odAemetService: OpendataAemetService, private loadingCtrl: LoadingController) {
   }
 
   ngOnInit() {
@@ -51,16 +53,33 @@ export class HomePage implements OnInit {
   }
 
   getClimatologicalValues() {
+    this.showLoading();
     const start = new Date(this.startDate).toISOString().replace('.000Z', 'UTC');
     const end = new Date(this.endDate).toISOString().replace('.000Z', 'UTC');
     console.log('HomePage::getClimatologicalValues method called', start, end);
     this.odAemetService.getClimatologicalURLData(start, end, this.selectedStation).subscribe((data) => {
       console.log(data);
-      this.odAemetService.getClimatologicalValues(data.datos).subscribe((values) => {
-        console.log(values);
-        this.climValues = values;
-      });
+      if (data.estado === 200) {
+        this.odAemetService.getClimatologicalValues(data.datos).subscribe((values) => {
+          console.log(values);
+          this.climValues = values;
+        });
+      }
+      this.hideLoading();
     });
+  }
+
+  async showLoading(): Promise<void> {
+    try {
+      this.loading = await this.loadingCtrl.create();
+      await this.loading.present();
+    } catch (error) {
+      console.error(error);
+    }
+}
+
+  hideLoading(): Promise<boolean> {
+      return this.loading.dismiss();
   }
 
 }

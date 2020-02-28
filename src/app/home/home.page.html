@@ -12,6 +12,7 @@
   </ion-item>
 
   <ion-card>
+    <ion-img src="https://www.miteco.gob.es/es/cartografia-y-sig/ide/descargas/aemet-descargas_tcm30-176795.jpg"></ion-img>
     <ion-card-header>
       <ion-card-subtitle>Complete the following data to get values</ion-card-subtitle>
       <ion-card-title>Open Data AEMET</ion-card-title>
@@ -48,6 +49,7 @@
       <ion-label>Climatological Values by day</ion-label>
     </ion-list-header>
     <ion-item *ngFor="let value of climValues" routerLink="/detail/{{ value.fecha }}">
+      <ion-icon slot="start" name="calendar"></ion-icon>
       <ion-label class="ion-text-wrap">
         <ion-text color="primary">
           <h3>Date: {{ value.fecha }}</h3>
