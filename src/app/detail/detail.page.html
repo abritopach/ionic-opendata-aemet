@@ -10,40 +10,46 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-subtitle>{{info?.indicativo}} - {{info?.nombre}}</ion-card-subtitle>
-      <ion-card-title>Climatological values day {{info?.fecha}}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ion-item *ngIf="info?.tmin" lines="none">
-          <ion-icon name="thermometer" slot="start"></ion-icon>
-          <ion-label>Tmin: {{info?.tmin}}</ion-label>
-        </ion-item>
-        <ion-item *ngIf="info?.tmax" lines="none">
-          <ion-icon name="thermometer" slot="start"></ion-icon>
-          <ion-label>Tmax: {{info?.tmax}}</ion-label>
-        </ion-item>
-        <ion-item *ngIf="info?.tmed" lines="none">
-          <ion-icon name="thermometer" slot="start"></ion-icon>
-          <ion-label>Tmed: {{info?.tmed}}</ion-label>
-        </ion-item>
-        <ion-item *ngIf="info?.prec" lines="none">
-          <ion-icon name="rainy" slot="start"></ion-icon>
-          <ion-label>Prec: {{info?.prec}}</ion-label>
-        </ion-item>
-        <ion-item *ngIf="info?.velmedia" lines="none">
-          <ion-icon name="information" slot="start"></ion-icon>
-          <ion-label>Vel Media: {{info?.velmedia}}</ion-label>
-        </ion-item>
-        <ion-item *ngIf="info?.sol" lines="none">
-          <ion-icon name="sunny" slot="start"></ion-icon>
-          <ion-label>Sol: {{info?.sol}}</ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
+  <ion-grid fixed>
+    <ion-row class="ion-align-items-stretch">
+      <ion-col size-lg="8" offset-lg="2" size-md="10" offset-md="1">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>{{info?.indicativo}} - {{info?.nombre}}</ion-card-subtitle>
+            <ion-card-title>Climatological values day {{info?.fecha}}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-list>
+              <ion-item *ngIf="info?.tmin" lines="none">
+                <ion-icon name="thermometer" slot="start"></ion-icon>
+                <ion-label>Tmin: {{info?.tmin}}</ion-label>
+              </ion-item>
+              <ion-item *ngIf="info?.tmax" lines="none">
+                <ion-icon name="thermometer" slot="start"></ion-icon>
+                <ion-label>Tmax: {{info?.tmax}}</ion-label>
+              </ion-item>
+              <ion-item *ngIf="info?.tmed" lines="none">
+                <ion-icon name="thermometer" slot="start"></ion-icon>
+                <ion-label>Tmed: {{info?.tmed}}</ion-label>
+              </ion-item>
+              <ion-item *ngIf="info?.prec" lines="none">
+                <ion-icon name="rainy" slot="start"></ion-icon>
+                <ion-label>Prec: {{info?.prec}}</ion-label>
+              </ion-item>
+              <ion-item *ngIf="info?.velmedia" lines="none">
+                <ion-icon name="information" slot="start"></ion-icon>
+                <ion-label>Vel Media: {{info?.velmedia}}</ion-label>
+              </ion-item>
+              <ion-item *ngIf="info?.sol" lines="none">
+                <ion-icon name="sunny" slot="start"></ion-icon>
+                <ion-label>Sol: {{info?.sol}}</ion-label>
+              </ion-item>
+            </ion-list>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 
 <ion-footer>

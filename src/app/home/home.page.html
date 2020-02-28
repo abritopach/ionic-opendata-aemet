@@ -11,38 +11,44 @@
     <h2>Example of APP that allows to obtain climatological values of the Spanish stations in a range of specific dates.</h2>
   </ion-item>
 
-  <ion-card>
-    <ion-img src="https://www.miteco.gob.es/es/cartografia-y-sig/ide/descargas/aemet-descargas_tcm30-176795.jpg"></ion-img>
-    <ion-card-header>
-      <ion-card-subtitle>Complete the following data to get values</ion-card-subtitle>
-      <ion-card-title>Open Data AEMET</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-item>
-        <ion-label>Province</ion-label>
-        <ion-select interface="popover" placeholder="Select a province" (ionChange)="onProvinceChange($event)">
-          <ion-select-option *ngFor="let province of provinces" [value]="province.value">{{province.nm}}</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label>Station</ion-label>
-        <ion-select interface="popover" placeholder="Select a station" (ionChange)="onStationChange($event)">
-          <ion-select-option *ngFor="let station of stations" [value]="station.indicativo">{{ station.indicativo }} - {{ station.nombre }}</ion-select-option>
-        </ion-select>
-      </ion-item>
-      <ion-item>
-        <ion-label>Start Date</ion-label>
-        <ion-datetime [(ngModel)]="startDate" displayFormat="D MMM, YY"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>End Date</ion-label>
-        <ion-datetime [(ngModel)]="endDate" displayFormat="D MMM, YY"></ion-datetime>
-      </ion-item>
-      <ion-item lines="none">
-        <ion-button size="small" (click)="getClimatologicalValues()">Search</ion-button>
-      </ion-item>
-    </ion-card-content>
-  </ion-card>
+  <ion-grid fixed>
+    <ion-row class="ion-align-items-stretch">
+      <ion-col size-lg="8" offset-lg="2" size-md="10" offset-md="1">
+        <ion-card>
+          <ion-img src="https://www.miteco.gob.es/es/cartografia-y-sig/ide/descargas/aemet-descargas_tcm30-176795.jpg"></ion-img>
+          <ion-card-header>
+            <ion-card-subtitle>Complete the following data to get values</ion-card-subtitle>
+            <ion-card-title>Open Data AEMET</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-item>
+              <ion-label>Province</ion-label>
+              <ion-select interface="popover" placeholder="Select a province" (ionChange)="onProvinceChange($event)">
+                <ion-select-option *ngFor="let province of provinces" [value]="province.value">{{province.nm}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label>Station</ion-label>
+              <ion-select interface="popover" placeholder="Select a station" (ionChange)="onStationChange($event)">
+                <ion-select-option *ngFor="let station of stations" [value]="station.indicativo">{{ station.indicativo }} - {{ station.nombre }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item>
+              <ion-label>Start Date</ion-label>
+              <ion-datetime [(ngModel)]="startDate" displayFormat="D MMM, YY"></ion-datetime>
+            </ion-item>
+            <ion-item>
+              <ion-label>End Date</ion-label>
+              <ion-datetime [(ngModel)]="endDate" displayFormat="D MMM, YY"></ion-datetime>
+            </ion-item>
+            <ion-item lines="none">
+              <ion-button size="small" (click)="getClimatologicalValues()">Search</ion-button>
+            </ion-item>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <ion-list *ngIf="climValues.length > 0">
     <ion-list-header>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { OpendataAemetService } from '../services/opendata-aemet.service';
 import { LoadingController } from '@ionic/angular';
+import { IziToastService } from '../services/izi-toast.service';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,7 @@ export class HomePage implements OnInit {
   climValues = [];
   loading: HTMLIonLoadingElement;
 
-  constructor(private odAemetService: OpendataAemetService, private loadingCtrl: LoadingController) {
+  constructor(private odAemetService: OpendataAemetService, private loadingCtrl: LoadingController, private iziToast: IziToastService) {
   }
 
   ngOnInit() {
@@ -64,6 +65,9 @@ export class HomePage implements OnInit {
           console.log(values);
           this.climValues = values;
         });
+      } else {
+        this.iziToast.show('Climatological values', 'Sorry, no matching data available.',
+        'red', 'ico-error', 'assets/avatar.png');
       }
       this.hideLoading();
     });
