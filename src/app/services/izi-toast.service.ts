@@ -22,7 +22,6 @@ export class IziToastService {
   };
 
   constructor() {
-    console.log('IziToastService::constructor() | method called', iziToast);
   }
 
   show(title, message, color, icon, image) {

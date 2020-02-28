@@ -15,7 +15,7 @@
     <ion-row class="ion-align-items-stretch">
       <ion-col size-lg="8" offset-lg="2" size-md="10" offset-md="1">
         <ion-card>
-          <ion-img src="https://www.miteco.gob.es/es/cartografia-y-sig/ide/descargas/aemet-descargas_tcm30-176795.jpg"></ion-img>
+          <ion-img src="assets/aemet.jpg"></ion-img>
           <ion-card-header>
             <ion-card-subtitle>Complete the following data to get values</ion-card-subtitle>
             <ion-card-title>Open Data AEMET</ion-card-title>
@@ -35,11 +35,11 @@
             </ion-item>
             <ion-item>
               <ion-label>Start Date</ion-label>
-              <ion-datetime [(ngModel)]="startDate" displayFormat="D MMM, YY"></ion-datetime>
+              <ion-datetime [(ngModel)]="startDate" displayFormat="D MMM, YY" [max]="maxDate"></ion-datetime>
             </ion-item>
             <ion-item>
               <ion-label>End Date</ion-label>
-              <ion-datetime [(ngModel)]="endDate" displayFormat="D MMM, YY"></ion-datetime>
+              <ion-datetime [(ngModel)]="endDate" displayFormat="D MMM, YY" [max]="maxDate"></ion-datetime>
             </ion-item>
             <ion-item lines="none">
               <ion-button size="small" (click)="getClimatologicalValues()">Search</ion-button>
@@ -70,5 +70,9 @@
 <ion-footer>
   <ion-toolbar color="primary">
       <ion-title>© {{ currentYear }} Adrián Brito Pacheco</ion-title>
+      <ion-buttons slot="end">
+        <ntkme-github-button user="abritopach" repo="ionic-opendata-aemet"></ntkme-github-button>
+        <ntkme-github-button user="abritopach" type="follow" style="margin-left: 5px;"></ntkme-github-button>
+      </ion-buttons>
   </ion-toolbar>
 </ion-footer>

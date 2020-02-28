@@ -5,13 +5,14 @@ import { Observable, throwError } from 'rxjs';
 
 import { tap, catchError, retry } from 'rxjs/operators';
 
+import { environment } from '../../environments/environment';
+
 @Injectable({
   providedIn: 'root'
 })
 export class OpendataAemetService {
 
   private readonly URL_BASE: string = 'https://opendata.aemet.es/opendata/api/';
-  private readonly API_KEY: string = 'eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZHJicnBhMTk4OEBnbWFpbC5jb20iLCJqdGkiOiJmNDU3M2E5Zi1mZWYzLTQ2MWEtODI0Yi00ZmFmZmVjNDA2YWUiLCJpc3MiOiJBRU1FVCIsImlhdCI6MTU4MjgxMDMwMiwidXNlcklkIjoiZjQ1NzNhOWYtZmVmMy00NjFhLTgyNGItNGZhZmZlYzQwNmFlIiwicm9sZSI6IiJ9.DOnvQjebrefPxaodOGI3o5EsNQ_O2ouPdXuoAYD15JE';
 
   provinces =
   [
@@ -40,7 +41,6 @@ export class OpendataAemetService {
   constructor(private http: HttpClient) {
     this.provinces.forEach(province => {
       const value = province.nm.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toUpperCase();
-      console.log('value', value);
       province['value'] = value;
     });
     this.provinces.sort((a, b) => a.nm.localeCompare(b.nm));
@@ -51,20 +51,11 @@ export class OpendataAemetService {
   }
 
   getAllStationsURLData(): Observable<any> {
-    // console.log(this.URL_BASE + `valores/climatologicos/inventarioestaciones/todasestaciones/?api_key=${this.API_KEY}`);
     return this.http
-    .get(this.URL_BASE + `valores/climatologicos/inventarioestaciones/todasestaciones/?api_key=${this.API_KEY}`)
+    .get(this.URL_BASE + `valores/climatologicos/inventarioestaciones/todasestaciones/?api_key=${environment.APIConfig.apiKey}`)
     .pipe(
       retry(3),
       catchError(this.handleError),
-      /*
-      tap((result) => {
-        console.log('result', result);
-      },
-      (error) => {
-          console.log('error', error.message);
-      })
-      */
     );
   }
 
@@ -74,23 +65,13 @@ export class OpendataAemetService {
     .pipe(
       retry(3),
       catchError(this.handleError),
-      /*
-      tap((result) => {
-        console.log('result', result);
-      },
-      (error) => {
-          console.log('error', error.message);
-      })
-      */
     );
   }
 
   getClimatologicalURLData(startDate: string, endDate: string , stationId: string): Observable<any> {
-    console.log(this.URL_BASE +
-      `/valores/climatologicos/diarios/datos/fechaini/${startDate}/fechafin/${endDate}/estacion/${stationId}/?api_key=${this.API_KEY}`);
     return this.http
     .get(this.URL_BASE +
-       `/valores/climatologicos/diarios/datos/fechaini/${startDate}/fechafin/${endDate}/estacion/${stationId}/?api_key=${this.API_KEY}`)
+       `/valores/climatologicos/diarios/datos/fechaini/${startDate}/fechafin/${endDate}/estacion/${stationId}/?api_key=${environment.APIConfig.apiKey}`)
     .pipe(
       retry(3),
       catchError(this.handleError),
@@ -104,7 +85,6 @@ export class OpendataAemetService {
       retry(3),
       catchError(this.handleError),
       tap((result) => {
-        console.log('result', result);
         this.climatologicalValues = result;
       },
       (error) => {

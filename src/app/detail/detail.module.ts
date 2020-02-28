@@ -8,12 +8,15 @@ import { DetailPageRoutingModule } from './detail-routing.module';
 
 import { DetailPage } from './detail.page';
 
+import { NtkmeButtonModule } from '@ctrl/ngx-github-buttons';
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    DetailPageRoutingModule
+    DetailPageRoutingModule,
+    NtkmeButtonModule
   ],
   declarations: [DetailPage]
 })
